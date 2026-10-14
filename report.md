@@ -1,7 +1,5 @@
 # Lab2：Bomb Lab 实验报告
 
-- 姓名:谢明熹
-- 学号：25800180138
 - 实验日期：2026 年 10 月 13—14 日
 - 仓库：https://github.com/10xmx012/ics-2026-bomblab
 - 环境：Windows、WSL Ubuntu、Linux x86-64、VS Code；使用 GCC、Make、GNU objdump、GDB 和 Python 3。
@@ -340,9 +338,19 @@ Honor 公开测试通过截图见下一节。
 | 第4关 | 10/10 | seed43完整运行六关全通过 |
 | 第5关 | 10/10 | seed43单关及完整运行通过 |
 | 第6关 | 10/10 | seed43单关及完整运行通过 |
-| Honor | 10/10 | 待补seed43中明确显示Secret phase defused.的记录 |
+| Honor | 10/10 | seed43文件输入验证，显示Secret phase defused. |
 
-**提交前待补：**现有 seed43 截图没有截入 `Secret phase defused.`，不能仅凭六关结局认定 Honor 通过。请再次执行完整运行，确认 Honor 成功，补充截图至 `images/honor-seed43.png`，并将本段和表格中的“待补”替换为实际记录后插入图片链接。
+另外将七行口令写入文件并运行，补充确认 Honor：
+
+```bash
+./defuser --seed 43 > verify43.txt
+./defuser --secret --seed 43 >> verify43.txt
+./bomb --seed 43 < verify43.txt
+```
+
+下面的截图包含 `./bomb --seed 43 < verify43.txt` 命令、`Secret phase defused.` 和附加档案恢复提示，确认 Honor 在公开列表之外的 seed43 下通过。verify43.txt 仅用于验证，不作为解法提交。
+
+![Honor在seed43下通过](images/honor-seed43.png)
 
 ### 9.3 其余过程截图
 
@@ -369,7 +377,7 @@ Honor 公开测试通过截图见下一节。
 
 ## 12. 提交前检查
 
-- 补齐 Honor 在公开 seed 列表之外的验证截图和记录。
+- 已补齐 Honor 在 seed43 下的验证截图；复制报告和全部图片后检查预览。
 - 检查报告中的每一项公式与自己的最终 defuser.c 一致，能够解释其汇编依据。
 - 所提供过程截图中 Makefile 显示为修改状态；提交前检查根目录及 tutor/Makefile 的 diff，确认课程驱动、测试和工作流没有被误改，不能把“修改过”直接等同于“测试有效”。
 - 根目录保留 defuser.c、report.md、个人 bomb 和 images/ 图片；不提交 defuser、完整反汇编和调试日志。
